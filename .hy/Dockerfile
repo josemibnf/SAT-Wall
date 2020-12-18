@@ -5,4 +5,4 @@ RUN apt-get update --fix-missing && apt-get -y install python3-pip && apt-get cl
 RUN pip3 install flask
 RUN pip3 install pandas
 RUN pip3 install numpy
-RUN mkdir /wall && cd /wall && apt-get update --fix-missing && apt-get -y install git && apt-get clean && git clone --branch wall https://github.com/josemibnf/Solvers.git && mv Solvers/* . && rm -rf Solvers && rm -rf .git
+RUN mkdir /wall && cd /wall && apt-get update --fix-missing && apt-get -y install git && apt-get clean && git clone --branch wall https://github.com/josemibnf/Solvers.git && mv SAT-Wall/* . && rm -rf SAT-Wall && rm -rf .git
