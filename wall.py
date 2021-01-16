@@ -6,7 +6,6 @@ from api_pb2 import Interpretation
 
 
 def parse(cnf):
-    lit_clause = {}
     clauses = []
     count = 0
     n_vars = 0
@@ -14,14 +13,17 @@ def parse(cnf):
         c_list = []
         for literal in clause.literal:
             c_list.append(literal)
-            if literal in lit_clause and count not in lit_clause[literal]:
-                lit_clause[literal].append(count)
-            else:
-                lit_clause.update({literal: [count]})
-                if n_vars< abs(literal): n_vars = abs(literal)
+            if n_vars < abs(literal):
+                n_vars = abs(literal)
         clauses.append(c_list)
         count += 1
-    return clauses, n_vars, [literal if literal is not None else [] for literal in lit_clause.values()]
+    count = 0
+    lit_clauses = [[] for _ in range(n_vars * 2 + 1)]
+    for clause in clauses:
+        for literal in clause:
+            lit_clauses[literal + n_vars].append(count)
+        count += 1
+    return clauses, n_vars, lit_clauses
 
 
 def get_random_interpretation(n_vars):
